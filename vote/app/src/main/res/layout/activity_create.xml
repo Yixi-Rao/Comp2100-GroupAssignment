@@ -61,29 +61,32 @@
                 </RelativeLayout>
 
                 <EditText
-                    android:id="@+id/editText"
+                    android:id="@+id/InitEditText1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#FFFFFF"
                     android:ems="10"
+                    android:singleLine="false"
                     android:inputType="textPersonName"
                     android:text="Name" />
 
                 <EditText
-                    android:id="@+id/editText2"
+                    android:id="@+id/InitEditText2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#FFFFFF"
                     android:ems="10"
+                    android:singleLine="false"
                     android:inputType="textPersonName"
                     android:text="Name" />
 
                 <EditText
-                    android:id="@+id/editText3"
+                    android:id="@+id/InitEditText3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#FFFFFF"
                     android:ems="10"
+                    android:singleLine="false"
                     android:inputType="textPersonName"
                     android:text="Name" />
 
@@ -92,10 +95,11 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button_Save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:onClick="generateSurvey"
+        android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.869"
