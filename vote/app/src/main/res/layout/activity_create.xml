@@ -41,7 +41,7 @@
                     android:gravity="left"
                     android:inputType="textMultiLine"
                     android:paddingLeft="5dip"
-                    android:text="Name"
+                    android:hint="Write the topic question"
                     tools:ignore="RtlHardcoded,RtlSymmetry" />
 
                 <RelativeLayout
@@ -65,20 +65,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#FFFFFF"
+                    android:layout_marginBottom="4dip"
+                    android:layout_marginTop="5dip"
                     android:ems="10"
-                    android:singleLine="false"
+                    android:hint="Write the question option"
                     android:inputType="textPersonName"
-                    android:text="Name" />
+                    android:singleLine="false" />
 
                 <EditText
                     android:id="@+id/InitEditText2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#FFFFFF"
+                    android:layout_marginBottom="4dip"
                     android:ems="10"
                     android:singleLine="false"
                     android:inputType="textPersonName"
-                    android:text="Name" />
+                    android:hint="Write the question option" />
 
                 <EditText
                     android:id="@+id/InitEditText3"
@@ -88,7 +91,7 @@
                     android:ems="10"
                     android:singleLine="false"
                     android:inputType="textPersonName"
-                    android:text="Name" />
+                    android:hint="Write the question option" />
 
             </LinearLayout>
         </LinearLayout>

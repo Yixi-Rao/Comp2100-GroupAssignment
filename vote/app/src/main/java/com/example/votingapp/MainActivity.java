@@ -18,4 +18,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this,CreateActivity.class);
         startActivity(intent);
     }
+    public void jumpToQuesActivity(View v){
+        Intent intent = new Intent(this,Questionnaire.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
+    }
 }

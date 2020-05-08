@@ -114,6 +114,7 @@ public class CreateActivity extends AppCompatActivity {
             question1.setSingleLine(false);
             question1.setPadding((int) (fDimRatio * 5), 0, 0, 0);
             question1.setTextSize(16);
+            question1.setHint("Write the topic question");
             lLayoutIn.addView(question1);
 //--------------------------------------Relative Layout-----------------------------------------------------------
             RelativeLayout reLayout = new RelativeLayout(CreateActivity.this);
@@ -160,29 +161,40 @@ public class CreateActivity extends AppCompatActivity {
 //--------------------------------------Options-----------------------------------------------------
             EditText option1 = new EditText(CreateActivity.this);
             LinearLayout.LayoutParams et1Param = new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            et1Param.setMargins(0,(int) (fDimRatio * 5),0,(int) (fDimRatio * 5));
             option1.setLayoutParams(et1Param);
             option1.setId(View.generateViewId());
             optionsIDs.add(option1.getId());
             option1.setBackgroundColor(Color.argb(255, 255, 255, 255));
+            option1.setHint("Write the question option");
+            option1.setPadding(0,0,0,0);
             lLayoutIn.addView(option1);
 
             EditText option2 = new EditText(CreateActivity.this);
             LinearLayout.LayoutParams et2Param = new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            et2Param.setMargins(0,0,0,(int) (fDimRatio * 5));
             option2.setLayoutParams(et2Param);
             option2.setId(View.generateViewId());
             optionsIDs.add(option2.getId());
             option2.setBackgroundColor(Color.argb(255, 255, 255, 255));
+            option2.setHint("Write the question option");
+            option2.setPadding(0,0,0,0);
             lLayoutIn.addView(option2);
 
             EditText option3 = new EditText(CreateActivity.this);
             LinearLayout.LayoutParams et3Param = new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
             option3.setLayoutParams(et3Param);
             option3.setId(View.generateViewId());
             optionsIDs.add(option3.getId());
             option3.setBackgroundColor(Color.argb(255, 255, 255, 255));
+            option3.setHint("Write the question option");
+            option3.setPadding(0,0,0,0);
             lLayoutIn.addView(option3);
 
             lLayoutOut.addView(lLayoutIn, buttonIndex);

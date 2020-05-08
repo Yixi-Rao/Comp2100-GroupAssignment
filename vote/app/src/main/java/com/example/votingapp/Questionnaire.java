@@ -2,6 +2,7 @@ package com.example.votingapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
@@ -34,10 +35,10 @@ public class Questionnaire extends AppCompatActivity {
             LinearLayout.LayoutParams lLayoutParams = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
-            lLayoutParams.setMargins(0, 5, 0, 0);
+            lLayoutParams.setMargins(0, 15, 0, 0);
             lLayoutIn.setLayoutParams(lLayoutParams);
             lLayoutIn.setBackgroundColor(Color.argb(255, 192, 192, 192));
-            lLayoutIn.setPadding(5, 5, 5, 5);
+            lLayoutIn.setPadding(15, 15, 15, 15);
             lLayoutIn.setOrientation(LinearLayout.VERTICAL);
             //--------------------------------------------------------------------------------------
             TextView question1 = new TextView(Questionnaire.this);
@@ -68,6 +69,7 @@ public class Questionnaire extends AppCompatActivity {
             radioButton1.setLayoutParams(ratioButtonParam);
             radioButton1.setSingleLine(false);
             radioButton1.setText(getIntent().getStringExtra("OP"+i+".1"));
+            radioButton1.setBackgroundColor(Color.argb(255, 221,160,221));
             buttonGroup.addView(radioButton1);
 
             RadioButton radioButton2 = new RadioButton(Questionnaire.this);
@@ -77,6 +79,7 @@ public class Questionnaire extends AppCompatActivity {
             radioButton2.setLayoutParams(ratioButtonParam2);
             radioButton2.setSingleLine(false);
             radioButton2.setText(getIntent().getStringExtra("OP"+i+".2"));
+            radioButton2.setBackgroundColor(Color.argb(255, 221,160,221));
             buttonGroup.addView(radioButton2);
 
             RadioButton radioButton3 = new RadioButton(Questionnaire.this);
@@ -86,6 +89,7 @@ public class Questionnaire extends AppCompatActivity {
             radioButton3.setLayoutParams(ratioButtonParam3);
             radioButton3.setSingleLine(false);
             radioButton3.setText(getIntent().getStringExtra("OP"+i+".3"));
+            radioButton3.setBackgroundColor(Color.argb(255, 221,160,221));
             buttonGroup.addView(radioButton3);
 
             lLayoutIn.addView(buttonGroup);
@@ -94,5 +98,11 @@ public class Questionnaire extends AppCompatActivity {
 
             lLayoutOut.addView(lLayoutIn);
         }
+    }
+
+    public void back_to_main(View view){
+        Intent intent = new Intent(this,MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
     }
 }
