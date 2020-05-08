@@ -37,7 +37,7 @@ public class CreateActivity extends AppCompatActivity {
 
     private int questionHeight = 0;
 
-    private float fDimRatio = 1.0f;
+    private float pd_px = 1.0f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +68,7 @@ public class CreateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 questionHeight = question.getHeight();
-                fDimRatio = questionHeight / 80;
+                pd_px = questionHeight / 80; //1 pd = 2.625 px
                 addContent(v);
             }
         });
@@ -95,11 +95,11 @@ public class CreateActivity extends AppCompatActivity {
             LinearLayout.LayoutParams lLayoutParams = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
-            lLayoutParams.setMargins(0, (int) (fDimRatio * 5), 0, 0);
+            lLayoutParams.setMargins(0, (int) (pd_px * 5), 0, 0);
             lLayoutIn.setLayoutParams(lLayoutParams);
             lLayoutIn.setBackgroundColor(Color.argb(255, 192, 192, 192));
-            lLayoutIn.setPadding((int) (fDimRatio * 5), (int) (fDimRatio * 5),
-                    (int) (fDimRatio * 5), (int) (fDimRatio * 5));
+            lLayoutIn.setPadding((int) (pd_px * 5), (int) (pd_px * 5),
+                    (int) (pd_px * 5), (int) (pd_px * 5));
             lLayoutIn.setOrientation(LinearLayout.VERTICAL);
 //--------------------------------------EditText question 1-----------------------------------------------------------
             EditText question1 = new EditText(CreateActivity.this);
@@ -112,7 +112,7 @@ public class CreateActivity extends AppCompatActivity {
             question1.setGravity(Gravity.LEFT);
             question1.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
             question1.setSingleLine(false);
-            question1.setPadding((int) (fDimRatio * 5), 0, 0, 0);
+            question1.setPadding((int) (pd_px * 5), 0, 0, 0);
             question1.setTextSize(16);
             question1.setHint("Write the topic question");
             lLayoutIn.addView(question1);
@@ -121,7 +121,7 @@ public class CreateActivity extends AppCompatActivity {
             RelativeLayout.LayoutParams rlParam = new RelativeLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
-            reLayout.setPadding(0, (int) (fDimRatio * 5), 0, 0);
+            reLayout.setPadding(0, (int) (pd_px * 5), 0, 0);
             reLayout.setLayoutParams(rlParam);
 //--------------------------------------Button add 1 & Button delete 1-----------------------------------------------------
             Button addButton1 = new Button(CreateActivity.this);
@@ -146,7 +146,7 @@ public class CreateActivity extends AppCompatActivity {
             RelativeLayout.LayoutParams deleteButtonParam = new RelativeLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
-            deleteButtonParam.setMargins(0, 0, (int) (fDimRatio * 5), 0);
+            deleteButtonParam.setMargins(0, 0, (int) (pd_px * 5), 0);
             deleteButtonParam.addRule(RelativeLayout.LEFT_OF, indexOfAdd);
             deleteButton1.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -163,7 +163,7 @@ public class CreateActivity extends AppCompatActivity {
             LinearLayout.LayoutParams et1Param = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
-            et1Param.setMargins(0,(int) (fDimRatio * 5),0,(int) (fDimRatio * 5));
+            et1Param.setMargins(0,(int) (pd_px * 5),0,(int) (pd_px * 5));
             option1.setLayoutParams(et1Param);
             option1.setId(View.generateViewId());
             optionsIDs.add(option1.getId());
@@ -176,7 +176,7 @@ public class CreateActivity extends AppCompatActivity {
             LinearLayout.LayoutParams et2Param = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
-            et2Param.setMargins(0,0,0,(int) (fDimRatio * 5));
+            et2Param.setMargins(0,0,0,(int) (pd_px * 5));
             option2.setLayoutParams(et2Param);
             option2.setId(View.generateViewId());
             optionsIDs.add(option2.getId());

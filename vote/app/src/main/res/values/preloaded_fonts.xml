@@ -3,5 +3,8 @@
     <array name="preloaded_fonts" translatable="false">
         <item>@font/aguafina_script</item>
         <item>@font/alex_brush</item>
+        <item>@font/ewert</item>
+        <item>@font/la_belle_aurore</item>
+        <item>@font/monofett</item>
     </array>
 </resources>

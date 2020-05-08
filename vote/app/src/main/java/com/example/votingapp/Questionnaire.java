@@ -10,15 +10,26 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Questionnaire extends AppCompatActivity {
 
     private LinearLayout lLayoutOut;
+    private float pd_px = 1.0f;
+
+    private HashMap<String, Integer> OptionToIdMap; // e.g. 1.1 --> id, 2.3 --> id
+    private ArrayList<Integer> RadioGroupList;
+    private ArrayList<String> Choices;
+    public int indexOfQ = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +37,13 @@ public class Questionnaire extends AppCompatActivity {
         setContentView(R.layout.activity_questionnaire);
 
         lLayoutOut = this.findViewById(R.id.LinearLayoutOut);
+        pd_px = (this.findViewById(R.id.question0).getHeight()) / 40;
+        RadioGroupList = new ArrayList<>();
+        OptionToIdMap = new HashMap<>();
+        Choices = new ArrayList<>();
         initQuestionnaire();
     }
+
     private void initQuestionnaire(){
         for (int i = 0; i < getIntent().getIntExtra("NumberOfQ",0);i++){
             //--------------------------------------------------------------------------------------
@@ -35,7 +51,7 @@ public class Questionnaire extends AppCompatActivity {
             LinearLayout.LayoutParams lLayoutParams = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
-            lLayoutParams.setMargins(0, 15, 0, 0);
+            lLayoutParams.setMargins(0, 15 , 0, 0);
             lLayoutIn.setLayoutParams(lLayoutParams);
             lLayoutIn.setBackgroundColor(Color.argb(255, 192, 192, 192));
             lLayoutIn.setPadding(15, 15, 15, 15);
@@ -59,6 +75,8 @@ public class Questionnaire extends AppCompatActivity {
             RadioGroup.LayoutParams ratioGroupParam = new RadioGroup.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
+            buttonGroup.setId(View.generateViewId());
+            RadioGroupList.add(buttonGroup.getId());
             ratioGroupParam.setMargins(0,15,0,0);
             buttonGroup.setLayoutParams(ratioGroupParam);
 
@@ -66,6 +84,8 @@ public class Questionnaire extends AppCompatActivity {
             RadioGroup.LayoutParams ratioButtonParam = new RadioGroup.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
+            radioButton1.setId(View.generateViewId());
+            OptionToIdMap.put(i+".1",radioButton1.getId());
             radioButton1.setLayoutParams(ratioButtonParam);
             radioButton1.setSingleLine(false);
             radioButton1.setText("A. "+getIntent().getStringExtra("OP"+i+".1"));
@@ -76,6 +96,8 @@ public class Questionnaire extends AppCompatActivity {
             RadioGroup.LayoutParams ratioButtonParam2 = new RadioGroup.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
+            radioButton2.setId(View.generateViewId());
+            OptionToIdMap.put(i+".2",radioButton2.getId());
             radioButton2.setLayoutParams(ratioButtonParam2);
             radioButton2.setSingleLine(false);
             radioButton2.setText("B. "+getIntent().getStringExtra("OP"+i+".2"));
@@ -86,6 +108,8 @@ public class Questionnaire extends AppCompatActivity {
             RadioGroup.LayoutParams ratioButtonParam3 = new RadioGroup.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
+            radioButton3.setId(View.generateViewId());
+            OptionToIdMap.put(i+".3",radioButton3.getId());
             radioButton3.setLayoutParams(ratioButtonParam3);
             radioButton3.setSingleLine(false);
             radioButton3.setText("C. "+getIntent().getStringExtra("OP"+i+".3"));
@@ -94,9 +118,8 @@ public class Questionnaire extends AppCompatActivity {
 
             lLayoutIn.addView(buttonGroup);
 
-
-
             lLayoutOut.addView(lLayoutIn);
+            indexOfQ++;
         }
     }
 
@@ -105,4 +128,20 @@ public class Questionnaire extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
+    public void submit_and_clear(View view){
+        for (int i = 0; i <RadioGroupList.size();i++){
+            int idOfChoice = ((RadioGroup)findViewById(RadioGroupList.get(i))).getCheckedRadioButtonId ();
+            if (idOfChoice == -1){
+                break;
+            }
+            Choices.add(((RadioButton)findViewById(idOfChoice)).getText().toString().charAt(0)+"");
+        }
+
+        for (int i = 0; i <RadioGroupList.size();i++){
+            ((RadioGroup)findViewById(RadioGroupList.get(i))).clearCheck();
+        }
+        System.out.println(Choices);
+        Choices.clear();
+    }
+
 }

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#8BC34A"
+    android:alpha="0.8"
+    android:background="@drawable/shunxiaochuang"
     tools:context=".MainActivity">
 
     <Button
@@ -15,6 +16,7 @@
         android:layout_marginTop="151dp"
         android:layout_marginEnd="165dp"
         android:layout_marginBottom="532dp"
+        android:alpha="1"
         android:onClick="jumpToCreateActivity"
         android:text="Create a vote"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -28,6 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="158dp"
         android:layout_marginEnd="165dp"
+        android:alpha="1"
         android:onClick="jumpToQuesActivity"
         android:text="Load vote"
         app:layout_constraintBottom_toBottomOf="parent"
