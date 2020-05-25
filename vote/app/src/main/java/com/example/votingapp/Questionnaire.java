@@ -18,6 +18,9 @@ import android.widget.RadioGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -25,6 +28,8 @@ public class Questionnaire extends AppCompatActivity {
 
     private LinearLayout lLayoutOut;
     private float pd_px = 1.0f;
+
+    public int respondentId = 0;
 
     private HashMap<String, Integer> OptionToIdMap; // e.g. 1.1 --> id, 2.3 --> id
     private ArrayList<Integer> RadioGroupList;
@@ -140,6 +145,11 @@ public class Questionnaire extends AppCompatActivity {
         for (int i = 0; i <RadioGroupList.size();i++){
             ((RadioGroup)findViewById(RadioGroupList.get(i))).clearCheck();
         }
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(respondentId+"");
+        myRef.setValue(Choices);
+        respondentId++;
         System.out.println(Choices);
         Choices.clear();
     }
