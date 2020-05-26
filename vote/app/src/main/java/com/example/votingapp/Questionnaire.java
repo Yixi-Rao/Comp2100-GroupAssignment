@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -21,36 +22,72 @@ import android.widget.TextView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Questionnaire extends AppCompatActivity {
 
     private LinearLayout lLayoutOut;
-    private float pd_px = 1.0f;
 
     public int respondentId = 0;
+    public int indexOfQ = 0;
 
     private HashMap<String, Integer> OptionToIdMap; // e.g. 1.1 --> id, 2.3 --> id
     private ArrayList<Integer> RadioGroupList;
     private ArrayList<String> Choices;
-    public int indexOfQ = 0;
+    private ArrayList<int[]> Question_Option_Group;
+    TextView duration;
+    int durationTime;
+
+
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        if (timer != null) {
+//            timer.cancel();
+//            timer = null;
+//        }
+//    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questionnaire);
+        System.out.println(getIntent().getIntExtra("duration",10)*1000);
+
 
         lLayoutOut = this.findViewById(R.id.LinearLayoutOut);
-        pd_px = (this.findViewById(R.id.question0).getHeight()) / 40;
         RadioGroupList = new ArrayList<>();
         OptionToIdMap = new HashMap<>();
         Choices = new ArrayList<>();
+
+        duration = this.findViewById(R.id.timer);
         initQuestionnaire();
+        CountDownTimer timer = new CountDownTimer(Integer.parseInt(getIntent().getStringExtra("duration"))*1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                duration.setText((millisUntilFinished / 1000) + "s");
+            }
+            @Override
+            public void onFinish() {
+                Question_Option_Group.clear();
+                Choices.clear();
+                Intent intent = new Intent(getApplicationContext(),CreateActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+            }
+        };
+        timer.start();
     }
 
     private void initQuestionnaire(){
+        Question_Option_Group = new ArrayList<>();
         for (int i = 0; i < getIntent().getIntExtra("NumberOfQ",0);i++){
+            Question_Option_Group.add(new int[3]);
             //--------------------------------------------------------------------------------------
             LinearLayout lLayoutIn = new LinearLayout(Questionnaire.this);
             LinearLayout.LayoutParams lLayoutParams = new LinearLayout.LayoutParams(
@@ -133,13 +170,26 @@ public class Questionnaire extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
+
     public void submit_and_clear(View view){
         for (int i = 0; i <RadioGroupList.size();i++){
             int idOfChoice = ((RadioGroup)findViewById(RadioGroupList.get(i))).getCheckedRadioButtonId ();
             if (idOfChoice == -1){
+                System.out.println("No choice!");
                 break;
             }
-            Choices.add(((RadioButton)findViewById(idOfChoice)).getText().toString().charAt(0)+"");
+            String choice = ((RadioButton)findViewById(idOfChoice)).getText().toString().charAt(0)+"";
+            Choices.add(choice);
+            if (choice.equals("A")){
+                Question_Option_Group.get(i)[0]++;
+                System.out.println("A"+Question_Option_Group.get(i)[0]);
+            } else if (choice.equals("B")){
+                Question_Option_Group.get(i)[1]++;
+                System.out.println("B"+Question_Option_Group.get(i)[1]);
+            } else {
+                Question_Option_Group.get(i)[2]++;
+                System.out.println("C"+Question_Option_Group.get(i)[2]);
+            }
         }
 
         for (int i = 0; i <RadioGroupList.size();i++){
@@ -152,6 +202,19 @@ public class Questionnaire extends AppCompatActivity {
         respondentId++;
         System.out.println(Choices);
         Choices.clear();
+    }
+
+    public void result_and_visualize(View view){
+        Intent intentToR = new Intent(getApplicationContext(), Result.class);
+        intentToR.putExtra("NumOfQ",Question_Option_Group.size());
+        for (int i = 0;i < Question_Option_Group.size();i++){
+            intentToR.putExtra(i+"A",Question_Option_Group.get(i)[0]);
+            intentToR.putExtra(i+"B",Question_Option_Group.get(i)[1]);
+            intentToR.putExtra(i+"C",Question_Option_Group.get(i)[2]);
+        }
+
+        Question_Option_Group.clear();
+        startActivity(intentToR);
     }
 
 }
