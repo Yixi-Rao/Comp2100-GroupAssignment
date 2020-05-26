@@ -65,6 +65,7 @@ public class CreateActivity extends AppCompatActivity {
         optionsIDs.add(R.id.InitEditText1);
         optionsIDs.add(R.id.InitEditText2);
         optionsIDs.add(R.id.InitEditText3);
+        System.out.println("init中的 "+optionsIDs);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -201,6 +202,7 @@ public class CreateActivity extends AppCompatActivity {
             lLayoutOut.addView(lLayoutIn, buttonIndex);
             indexOfAdd++;
         }
+        System.out.println("add中的 "+optionsIDs);
     }
 
     private void deleteContent(View v) {
@@ -215,10 +217,19 @@ public class CreateActivity extends AppCompatActivity {
             }
         }
 
+
         if (buttonIndex >= 0) {
             AddButList.remove(buttonIndex);
             DelButList.remove(buttonIndex);
             lLayoutOut.removeViewAt(buttonIndex);
+            questionIDs.remove(buttonIndex);
+            System.out.println("index "+buttonIndex);
+            optionsIDs.remove(buttonIndex*3);
+            System.out.println("del1 中的 "+optionsIDs);
+            optionsIDs.remove(buttonIndex*3);
+            System.out.println("del2 中的 "+optionsIDs);
+            optionsIDs.remove(buttonIndex*3);
+            System.out.println("del3 中的 "+optionsIDs);
         }
     }
 
