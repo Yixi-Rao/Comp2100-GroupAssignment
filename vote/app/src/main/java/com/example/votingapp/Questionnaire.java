@@ -7,25 +7,19 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.InputType;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Objects;
 
 public class Questionnaire extends AppCompatActivity {
 
@@ -38,50 +32,59 @@ public class Questionnaire extends AppCompatActivity {
     private ArrayList<Integer> RadioGroupList;
     private ArrayList<String> Choices;
     private ArrayList<int[]> Question_Option_Group;
-    TextView duration;
-    int durationTime;
+    TextView duration_tv;
+    CountDownTimer timer;
 
 
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//        if (timer != null) {
-//            timer.cancel();
-//            timer = null;
-//        }
-//    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
+    }
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questionnaire);
-        System.out.println(getIntent().getIntExtra("duration",10)*1000);
-
 
         lLayoutOut = this.findViewById(R.id.LinearLayoutOut);
         RadioGroupList = new ArrayList<>();
         OptionToIdMap = new HashMap<>();
         Choices = new ArrayList<>();
 
-        duration = this.findViewById(R.id.timer);
+        duration_tv = this.findViewById(R.id.timer_tv);
         initQuestionnaire();
-        CountDownTimer timer = new CountDownTimer(Integer.parseInt(getIntent().getStringExtra("duration"))*1000, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                duration.setText((millisUntilFinished / 1000) + "s");
-            }
-            @Override
-            public void onFinish() {
-                Question_Option_Group.clear();
-                Choices.clear();
-                Intent intent = new Intent(getApplicationContext(),CreateActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                startActivity(intent);
-            }
-        };
-        timer.start();
+        if (getIntent().getStringExtra("duration").equals("")){
+            System.out.println("You have not set up the Timer");
+            duration_tv.setText("No Timer");
+            duration_tv.setTextSize(15);
+        } else {
+            timer = new CountDownTimer(Integer.parseInt(getIntent().getStringExtra("duration") )* 1000, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    duration_tv.setText((millisUntilFinished / 1000) + "s");
+                }
+                @Override
+                public void onFinish() {
+                    Choices.clear();
+                    Intent intentToR = new Intent(getApplicationContext(), Result.class);
+                    intentToR.putExtra("NumOfQ",Question_Option_Group.size());
+                    for (int i = 0;i < Question_Option_Group.size();i++){
+                        intentToR.putExtra(i+"A",Question_Option_Group.get(i)[0]);
+                        intentToR.putExtra(i+"B",Question_Option_Group.get(i)[1]);
+                        intentToR.putExtra(i+"C",Question_Option_Group.get(i)[2]);
+                    }
+                    intentToR.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    Question_Option_Group.clear();
+                    startActivity(intentToR);
+                }
+            };
+            timer.start();
+        }
     }
 
     private void initQuestionnaire(){
@@ -204,7 +207,7 @@ public class Questionnaire extends AppCompatActivity {
         Choices.clear();
     }
 
-    public void result_and_visualize(View view){
+    public void result_and_visualize(View view) {
         Intent intentToR = new Intent(getApplicationContext(), Result.class);
         intentToR.putExtra("NumOfQ",Question_Option_Group.size());
         for (int i = 0;i < Question_Option_Group.size();i++){
@@ -212,8 +215,9 @@ public class Questionnaire extends AppCompatActivity {
             intentToR.putExtra(i+"B",Question_Option_Group.get(i)[1]);
             intentToR.putExtra(i+"C",Question_Option_Group.get(i)[2]);
         }
-
+        Choices.clear();
         Question_Option_Group.clear();
+        intentToR.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intentToR);
     }
 

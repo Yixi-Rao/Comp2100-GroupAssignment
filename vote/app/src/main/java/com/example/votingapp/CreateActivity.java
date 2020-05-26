@@ -46,7 +46,7 @@ public class CreateActivity extends AppCompatActivity {
         initFirst();
     }
 
-    private void initFirst(){
+    private void initFirst() {
         lLayoutOut = this.findViewById(R.id.content_view);
         question = this.findViewById(R.id.et_content1);
         optionInit1 = this.findViewById(R.id.InitEditText1);
@@ -54,7 +54,7 @@ public class CreateActivity extends AppCompatActivity {
         optionInit3 = this.findViewById(R.id.InitEditText3);
         saveButton = findViewById(R.id.button_Save);
         Button addButton = this.findViewById(R.id.ibn_add1);
-        duration = this.findViewById(R.id.duration);
+        duration = this.findViewById(R.id.duration_et);
 
         AddButList = new LinkedList<>();
         DelButList = new LinkedList<>();
@@ -224,7 +224,9 @@ public class CreateActivity extends AppCompatActivity {
 
     public void generateSurvey(View view){
         Intent intentToQ = new Intent(getApplicationContext(), Questionnaire.class);
+
         System.out.println(duration.getText().toString().substring(9));
+
         intentToQ.putExtra("duration",(duration.getText().toString()).substring(9));
         for (int i = 0;i < questionIDs.size();i++){
             EditText question = findViewById(questionIDs.get(i));
