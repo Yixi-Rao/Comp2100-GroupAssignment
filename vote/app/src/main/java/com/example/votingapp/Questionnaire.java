@@ -49,6 +49,8 @@ public class Questionnaire extends AppCompatActivity {
         initQuestionnaire();
     }
 
+
+    // questionaire adding in topics
     private void initQuestionnaire(){
         for (int i = 0; i < getIntent().getIntExtra("NumberOfQ",0);i++){
             //--------------------------------------------------------------------------------------
@@ -133,6 +135,9 @@ public class Questionnaire extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
+
+
+    // submit functioning actually adding all the information needed in
     public void submit_and_clear(View view){
         for (int i = 0; i <RadioGroupList.size();i++){
             int idOfChoice = ((RadioGroup)findViewById(RadioGroupList.get(i))).getCheckedRadioButtonId ();
@@ -145,7 +150,7 @@ public class Questionnaire extends AppCompatActivity {
         for (int i = 0; i <RadioGroupList.size();i++){
             ((RadioGroup)findViewById(RadioGroupList.get(i))).clearCheck();
         }
-
+    // firebase based project functioning
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(respondentId+"");
         myRef.setValue(Choices);
