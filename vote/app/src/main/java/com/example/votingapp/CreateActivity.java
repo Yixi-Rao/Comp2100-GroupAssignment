@@ -22,7 +22,7 @@ public class CreateActivity extends AppCompatActivity {
     private LinearLayout lLayoutOut;
 
     private Button saveButton;
-
+    private EditText duration;
     private EditText question;
     private EditText optionInit1;
     private EditText optionInit2;
@@ -46,7 +46,7 @@ public class CreateActivity extends AppCompatActivity {
         initFirst();
     }
 
-    private void initFirst(){
+    private void initFirst() {
         lLayoutOut = this.findViewById(R.id.content_view);
         question = this.findViewById(R.id.et_content1);
         optionInit1 = this.findViewById(R.id.InitEditText1);
@@ -54,6 +54,7 @@ public class CreateActivity extends AppCompatActivity {
         optionInit3 = this.findViewById(R.id.InitEditText3);
         saveButton = findViewById(R.id.button_Save);
         Button addButton = this.findViewById(R.id.ibn_add1);
+        duration = this.findViewById(R.id.duration_et);
 
         AddButList = new LinkedList<>();
         DelButList = new LinkedList<>();
@@ -64,6 +65,7 @@ public class CreateActivity extends AppCompatActivity {
         optionsIDs.add(R.id.InitEditText1);
         optionsIDs.add(R.id.InitEditText2);
         optionsIDs.add(R.id.InitEditText3);
+        System.out.println("init中的 "+optionsIDs);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -200,6 +202,7 @@ public class CreateActivity extends AppCompatActivity {
             lLayoutOut.addView(lLayoutIn, buttonIndex);
             indexOfAdd++;
         }
+        System.out.println("add中的 "+optionsIDs);
     }
 
     private void deleteContent(View v) {
@@ -214,15 +217,28 @@ public class CreateActivity extends AppCompatActivity {
             }
         }
 
+
         if (buttonIndex >= 0) {
             AddButList.remove(buttonIndex);
             DelButList.remove(buttonIndex);
             lLayoutOut.removeViewAt(buttonIndex);
+            questionIDs.remove(buttonIndex);
+            System.out.println("index "+buttonIndex);
+            optionsIDs.remove(buttonIndex*3);
+            System.out.println("del1 中的 "+optionsIDs);
+            optionsIDs.remove(buttonIndex*3);
+            System.out.println("del2 中的 "+optionsIDs);
+            optionsIDs.remove(buttonIndex*3);
+            System.out.println("del3 中的 "+optionsIDs);
         }
     }
 
     public void generateSurvey(View view){
         Intent intentToQ = new Intent(getApplicationContext(), Questionnaire.class);
+
+        System.out.println(duration.getText().toString().substring(9));
+
+        intentToQ.putExtra("duration",(duration.getText().toString()).substring(9));
         for (int i = 0;i < questionIDs.size();i++){
             EditText question = findViewById(questionIDs.get(i));
             String strQuestion = question.getText().toString();

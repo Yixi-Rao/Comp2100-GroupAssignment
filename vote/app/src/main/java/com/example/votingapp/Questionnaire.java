@@ -5,17 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.InputType;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
@@ -27,14 +24,27 @@ import java.util.HashMap;
 public class Questionnaire extends AppCompatActivity {
 
     private LinearLayout lLayoutOut;
-    private float pd_px = 1.0f;
 
     public int respondentId = 0;
+    public int indexOfQ = 0;
 
     private HashMap<String, Integer> OptionToIdMap; // e.g. 1.1 --> id, 2.3 --> id
     private ArrayList<Integer> RadioGroupList;
     private ArrayList<String> Choices;
-    public int indexOfQ = 0;
+    private ArrayList<int[]> Question_Option_Group;
+    TextView duration_tv;
+    CountDownTimer timer;
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,17 +52,45 @@ public class Questionnaire extends AppCompatActivity {
         setContentView(R.layout.activity_questionnaire);
 
         lLayoutOut = this.findViewById(R.id.LinearLayoutOut);
-        pd_px = (this.findViewById(R.id.question0).getHeight()) / 40;
         RadioGroupList = new ArrayList<>();
         OptionToIdMap = new HashMap<>();
         Choices = new ArrayList<>();
+
+        duration_tv = this.findViewById(R.id.timer_tv);
         initQuestionnaire();
+        if (getIntent().getStringExtra("duration").equals("")){
+            System.out.println("You have not set up the Timer");
+            duration_tv.setText("No Timer");
+            duration_tv.setTextSize(15);
+        } else {
+            timer = new CountDownTimer(Integer.parseInt(getIntent().getStringExtra("duration") )* 1000, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    duration_tv.setText((millisUntilFinished / 1000) + "s");
+                }
+                @Override
+                public void onFinish() {
+                    Choices.clear();
+                    Intent intentToR = new Intent(getApplicationContext(), Result.class);
+                    intentToR.putExtra("NumOfQ",Question_Option_Group.size());
+                    for (int i = 0;i < Question_Option_Group.size();i++){
+                        intentToR.putExtra(i+"A",Question_Option_Group.get(i)[0]);
+                        intentToR.putExtra(i+"B",Question_Option_Group.get(i)[1]);
+                        intentToR.putExtra(i+"C",Question_Option_Group.get(i)[2]);
+                    }
+                    intentToR.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    Question_Option_Group.clear();
+                    startActivity(intentToR);
+                }
+            };
+            timer.start();
+        }
     }
 
-
-    // questionaire adding in topics
     private void initQuestionnaire(){
+        Question_Option_Group = new ArrayList<>();
         for (int i = 0; i < getIntent().getIntExtra("NumberOfQ",0);i++){
+            Question_Option_Group.add(new int[3]);
             //--------------------------------------------------------------------------------------
             LinearLayout lLayoutIn = new LinearLayout(Questionnaire.this);
             LinearLayout.LayoutParams lLayoutParams = new LinearLayout.LayoutParams(
@@ -136,27 +174,51 @@ public class Questionnaire extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-    // submit functioning actually adding all the information needed in
     public void submit_and_clear(View view){
         for (int i = 0; i <RadioGroupList.size();i++){
             int idOfChoice = ((RadioGroup)findViewById(RadioGroupList.get(i))).getCheckedRadioButtonId ();
             if (idOfChoice == -1){
+                System.out.println("No choice!");
                 break;
             }
-            Choices.add(((RadioButton)findViewById(idOfChoice)).getText().toString().charAt(0)+"");
+            String choice = ((RadioButton)findViewById(idOfChoice)).getText().toString().charAt(0)+"";
+            Choices.add(choice);
+            if (choice.equals("A")){
+                Question_Option_Group.get(i)[0]++;
+                System.out.println("A"+Question_Option_Group.get(i)[0]);
+            } else if (choice.equals("B")){
+                Question_Option_Group.get(i)[1]++;
+                System.out.println("B"+Question_Option_Group.get(i)[1]);
+            } else {
+                Question_Option_Group.get(i)[2]++;
+                System.out.println("C"+Question_Option_Group.get(i)[2]);
+            }
         }
 
         for (int i = 0; i <RadioGroupList.size();i++){
             ((RadioGroup)findViewById(RadioGroupList.get(i))).clearCheck();
         }
-    // firebase based project functioning
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(respondentId+"");
         myRef.setValue(Choices);
         respondentId++;
         System.out.println(Choices);
         Choices.clear();
+    }
+
+    public void result_and_visualize(View view) {
+        Intent intentToR = new Intent(getApplicationContext(), Result.class);
+        intentToR.putExtra("NumOfQ",Question_Option_Group.size());
+        for (int i = 0;i < Question_Option_Group.size();i++){
+            intentToR.putExtra(i+"A",Question_Option_Group.get(i)[0]);
+            intentToR.putExtra(i+"B",Question_Option_Group.get(i)[1]);
+            intentToR.putExtra(i+"C",Question_Option_Group.get(i)[2]);
+        }
+        Choices.clear();
+        Question_Option_Group.clear();
+        intentToR.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intentToR);
     }
 
 }
