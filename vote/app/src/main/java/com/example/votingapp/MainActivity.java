@@ -19,7 +19,9 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: voting started");
 
         Button quesButt = (Button) findViewById(R.id.questbut);
-
+        /**
+         * Quest Button mainly doing simple guide on how to start the app
+         */
         quesButt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     *
+     * generally setting a fast way to use toaster
+     */
     public void toastMessage(String ms){
         Toast.makeText(MainActivity.this, ms, Toast.LENGTH_LONG).show();
     }

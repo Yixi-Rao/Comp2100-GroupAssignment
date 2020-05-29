@@ -32,12 +32,13 @@
                 android:background="#EFBEBE"
                 android:backgroundTint="#F8CDCD"
                 android:fontFamily="sans-serif"
-                android:text="submitAndGettheResult!"
+                android:text='"Making choices and submit to get a result!"'
                 android:textAlignment="viewStart"
                 android:textAllCaps="false"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="@color/colorPrimary"
-                android:textColorHighlight="@android:color/holo_orange_light" />
+                android:textColorHighlight="@android:color/holo_orange_light"
+                android:textSize="18sp" />
         </LinearLayout>
     </ScrollView>
 

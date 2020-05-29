@@ -46,6 +46,9 @@ public class CreateActivity extends AppCompatActivity {
         initFirst();
     }
 
+    /**
+     * initializing layouts and widgets
+     */
     private void initFirst() {
         lLayoutOut = this.findViewById(R.id.content_view);
         question = this.findViewById(R.id.et_content1);

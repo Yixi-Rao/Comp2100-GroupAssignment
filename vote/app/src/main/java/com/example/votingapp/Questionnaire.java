@@ -52,6 +52,7 @@ public class Questionnaire extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questionnaire);
 
+        String questionaireGuide = "Making choices and submit!";
         lLayoutOut = this.findViewById(R.id.LinearLayoutOut);
         RadioGroupList = new ArrayList<>();
         OptionToIdMap = new HashMap<>();
