@@ -17,17 +17,17 @@
         android:onClick="jumpToCreateActivity"
         android:text="Create a vote"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/b_load"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.405" />
+        app:layout_constraintTop_toBottomOf="@+id/editText"
+        app:layout_constraintVertical_bias="0.496" />
 
     <Button
         android:id="@+id/b_load"
-        android:layout_width="108dp"
-        android:layout_height="62dp"
+        android:layout_width="116dp"
+        android:layout_height="68dp"
         android:alpha="1"
         android:background="#F6F2F2"
         android:onClick="jumpToQuesActivity"
@@ -35,10 +35,10 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.582" />
+        app:layout_constraintVertical_bias="0.636" />
 
     <EditText
         android:id="@+id/editText"
@@ -52,21 +52,21 @@
         app:layout_constraintBottom_toTopOf="@+id/b_create"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.73" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/questbut"
         style="@android:style/Widget.Button"
-        android:layout_width="48dp"
-        android:layout_height="39dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="78dp"
+        android:layout_height="60dp"
         android:background="#C3A4A4"
         android:backgroundTint="#714F4F"
         android:text="ques"
         android:typeface="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.066"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.114"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.855" />
 </androidx.constraintlayout.widget.ConstraintLayout>
