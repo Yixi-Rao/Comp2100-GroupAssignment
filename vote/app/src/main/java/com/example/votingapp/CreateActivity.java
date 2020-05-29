@@ -82,8 +82,8 @@ public class CreateActivity extends AppCompatActivity {
     }
 
     /**
-     *
-     * To judge whether the "creat" intent whether have an started topic, if have >=2 then entering Button adding processor
+     * To judge whether the "create" intent whether have an started topic, if have >=2 then entering Button adding processor
+     * @param v view
      */
     private void addContent(View v) {
         if (v == null) {
@@ -216,6 +216,9 @@ public class CreateActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Delete one question, and remove it from the layout.
+     */
     private void deleteContent(View v) {
         if (v == null) {
             return;
@@ -245,8 +248,8 @@ public class CreateActivity extends AppCompatActivity {
     }
 
     /**
-     *
-     * @param view Ending the CreatActivity, storing current questionnaire and start the vote
+     * Ending the CreateActivity, storing current questionnaire and start the vote
+     * @param view view
      */
     public void generateSurvey(View view){
         Intent intentToQ = new Intent(getApplicationContext(), Questionnaire.class);

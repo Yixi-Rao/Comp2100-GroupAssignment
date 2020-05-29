@@ -31,10 +31,19 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * jump to createActivity to create questionnaire
+     * @param v view
+     */
     public void jumpToCreateActivity(View v){
         Intent intent = new Intent(this,CreateActivity.class);
         startActivity(intent);
     }
+
+    /**
+     * jump to question activity to submit and finish a questionnaire
+     * @param v view
+     */
     public void jumpToQuesActivity(View v){
         Intent intent = new Intent(this,Questionnaire.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -42,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     *
      * generally setting a fast way to use toaster
+     * @param ms message will present
      */
     public void toastMessage(String ms){
         Toast.makeText(MainActivity.this, ms, Toast.LENGTH_LONG).show();

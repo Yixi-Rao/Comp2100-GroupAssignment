@@ -36,7 +36,9 @@ public class Result extends AppCompatActivity {
         lLayoutOut2 = this.findViewById(R.id.ll_two);
         initChartPie();
     }
-
+    /**
+     * initialize the chart pie
+     */
     private void initChartPie(){
         for (int i = 0; i<getIntent().getIntExtra("NumOfQ",0);i++){
             PieChart pieChart = new PieChart(Result.this);
@@ -53,6 +55,13 @@ public class Result extends AppCompatActivity {
 
     }
 
+    /**
+     * Figure out the parameters and the percentage of each choices
+     * @param A_num the number of option A
+     * @param B_num the number of option B
+     * @param C_num the number of option C
+     * @return a list of pie Entry
+     */
     private List<PieEntry> getPieChartData(int A_num,int B_num,int C_num) {
         List<PieEntry> mPie = new ArrayList<>();
         int totalNum = A_num  +  B_num + C_num;
@@ -65,6 +74,12 @@ public class Result extends AppCompatActivity {
         return mPie;
     }
 
+    /**
+     * create the pie chart and configure all the setting of the chart
+     * @param pieChart A pie chart
+     * @param pieList a list of chart entry
+     * @param question the title of the chart
+     */
     private void showPieChart(PieChart pieChart, List<PieEntry> pieList, String question) {
 
         PieDataSet dataSet = new PieDataSet(pieList,"");
@@ -157,6 +172,10 @@ public class Result extends AppCompatActivity {
         pieChart.postInvalidate();
     }
 
+    /**
+     * finish all the view and clear it and go back to main activity
+     * @param view view
+     */
     public void finish_and_back(View view){
         Intent intent = new Intent(getApplicationContext(),MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

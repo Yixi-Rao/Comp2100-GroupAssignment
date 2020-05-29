@@ -98,6 +98,9 @@ public class Questionnaire extends AppCompatActivity {
         }
     }
 
+    /**
+     * set up the questionnaire include question and options
+     */
     private void initQuestionnaire(){
         Question_Option_Group = new ArrayList<>();
         for (int i = 0; i < getIntent().getIntExtra("NumberOfQ",0);i++){
@@ -179,12 +182,21 @@ public class Questionnaire extends AppCompatActivity {
         }
     }
 
+    /**
+     * back to the main activity but does not clear the stack
+     * @param view view
+     */
     public void back_to_main(View view){
         Intent intent = new Intent(this,MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
 
+    /**
+     * submit the questionnaire from one user and upload it to firebase server and the will go back to
+     * main activity
+     * @param view view
+     */
     public void submit_and_clear(View view){
         for (int i = 0; i <RadioGroupList.size();i++){
             int idOfChoice = ((RadioGroup)findViewById(RadioGroupList.get(i))).getCheckedRadioButtonId ();
@@ -224,6 +236,10 @@ public class Questionnaire extends AppCompatActivity {
         back_to_main(view);
     }
 
+    /**
+     * jump to result activity and visualize the result, clear the stack as well
+     * @param view view
+     */
     public void result_and_visualize(View view) {
         Intent intentToR = new Intent(getApplicationContext(), Result.class);
         intentToR.putExtra("NumOfQ",Question_Option_Group.size());
