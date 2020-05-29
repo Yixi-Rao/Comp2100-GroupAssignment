@@ -27,7 +27,6 @@ Add as many "url+licence+comment" entries as necessary
 
 
 ### References:
-If you use any external sources to increase your understanding of a topic, or to provide as evidence for a written question, it must be referenced here. If you want to in-text reference something, it must be referenced here. Harvard or APA referencing is expected.
     https://blog.csdn.net/chadeltu/article/details/42390047 
     https://blog.csdn.net/weixin_44233889/article/details/90722027
 
