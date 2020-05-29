@@ -213,7 +213,7 @@ public class CreateActivity extends AppCompatActivity {
             lLayoutOut.addView(lLayoutIn, buttonIndex);
             indexOfAdd++;
         }
-        System.out.println("add中的 "+optionsIDs);
+
     }
 
     private void deleteContent(View v) {
@@ -234,13 +234,13 @@ public class CreateActivity extends AppCompatActivity {
             DelButList.remove(buttonIndex);
             lLayoutOut.removeViewAt(buttonIndex);
             questionIDs.remove(buttonIndex);
-            System.out.println("index "+buttonIndex);
+
             optionsIDs.remove(buttonIndex*3);
-            System.out.println("del1 中的 "+optionsIDs);
+
             optionsIDs.remove(buttonIndex*3);
-            System.out.println("del2 中的 "+optionsIDs);
+
             optionsIDs.remove(buttonIndex*3);
-            System.out.println("del3 中的 "+optionsIDs);
+
         }
     }
 

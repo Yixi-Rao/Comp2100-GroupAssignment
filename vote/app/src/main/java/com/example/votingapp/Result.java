@@ -56,10 +56,6 @@ public class Result extends AppCompatActivity {
     private List<PieEntry> getPieChartData(int A_num,int B_num,int C_num) {
         List<PieEntry> mPie = new ArrayList<>();
         int totalNum = A_num  +  B_num + C_num;
-        System.out.println("所有的选项 " + totalNum);
-        System.out.println("选项 A "+ A_num);
-        System.out.println("选项 B "+ B_num);
-        System.out.println("选项 C "+ C_num);
         PieEntry pieEntry1 = new PieEntry(((float) A_num/totalNum) * 100,"A");
         PieEntry pieEntry2 = new PieEntry(((float) B_num/totalNum) * 100,"B");
         PieEntry pieEntry3 = new PieEntry(((float) C_num/totalNum) * 100,"C");

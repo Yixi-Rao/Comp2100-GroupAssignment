@@ -63,7 +63,10 @@ public class Questionnaire extends AppCompatActivity {
         /**
          * if the timer is shut down then if click the back button wont get back to the "shut down" intent
          */
-        if (getIntent().getStringExtra("duration").equals("")){
+        if ( getIntent().getStringExtra("duration") == null){
+            TextView textView0 = findViewById(R.id.question0);
+            textView0.setText("The questionnaire does not exist");
+        } else if (getIntent().getStringExtra("duration").equals("")){
             System.out.println("You have not set up the Timer");
             duration_tv.setText("No Timer");
             duration_tv.setTextSize(15);
@@ -218,6 +221,7 @@ public class Questionnaire extends AppCompatActivity {
         respondentId++;
         System.out.println(Choices);
         Choices.clear();
+        back_to_main(view);
     }
 
     public void result_and_visualize(View view) {
