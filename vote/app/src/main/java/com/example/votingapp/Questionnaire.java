@@ -52,7 +52,7 @@ public class Questionnaire extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questionnaire);
 
-        String questionaireGuide = "Making choices and submit!";
+        //String questionaireGuide = "Making choices and submit!";
         lLayoutOut = this.findViewById(R.id.LinearLayoutOut);
         RadioGroupList = new ArrayList<>();
         OptionToIdMap = new HashMap<>();
@@ -60,11 +60,17 @@ public class Questionnaire extends AppCompatActivity {
 
         duration_tv = this.findViewById(R.id.timer_tv);
         initQuestionnaire();
+        /**
+         * if the timer is shut down then if click the back button wont get back to the "shut down" intent
+         */
         if (getIntent().getStringExtra("duration").equals("")){
             System.out.println("You have not set up the Timer");
             duration_tv.setText("No Timer");
             duration_tv.setTextSize(15);
         } else {
+            /**
+             * setting counting down timer to set deadline
+             */
             timer = new CountDownTimer(Integer.parseInt(getIntent().getStringExtra("duration") )* 1000, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
@@ -185,6 +191,9 @@ public class Questionnaire extends AppCompatActivity {
             }
             String choice = ((RadioButton)findViewById(idOfChoice)).getText().toString().charAt(0)+"";
             Choices.add(choice);
+            /**
+             * Choices is a n-row 3 columns "answers" arraylist
+             */
             if (choice.equals("A")){
                 Question_Option_Group.get(i)[0]++;
                 System.out.println("A"+Question_Option_Group.get(i)[0]);
@@ -200,7 +209,9 @@ public class Questionnaire extends AppCompatActivity {
         for (int i = 0; i <RadioGroupList.size();i++){
             ((RadioGroup)findViewById(RadioGroupList.get(i))).clearCheck();
         }
-
+        /**
+         * transferring answers to get result
+         */
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(respondentId+"");
         myRef.setValue(Choices);

@@ -81,6 +81,10 @@ public class CreateActivity extends AppCompatActivity {
         DelButList.add(null);
     }
 
+    /**
+     *
+     * To judge whether the "creat" intent whether have an started topic, if have >=2 then entering Button adding processor
+     */
     private void addContent(View v) {
         if (v == null) {
             return;
@@ -95,6 +99,7 @@ public class CreateActivity extends AppCompatActivity {
 
         if (buttonIndex >= 0) {
             buttonIndex += 1;
+
 //-------------------------------------LinearLayout In-----------------------------------------------------------
             LinearLayout lLayoutIn = new LinearLayout(CreateActivity.this);
             LinearLayout.LayoutParams lLayoutParams = new LinearLayout.LayoutParams(
@@ -129,6 +134,9 @@ public class CreateActivity extends AppCompatActivity {
             reLayout.setPadding(0, (int) (pd_px * 5), 0, 0);
             reLayout.setLayoutParams(rlParam);
 //--------------------------------------Button add 1 & Button delete 1-----------------------------------------------------
+            /**
+             * Multiple buttons will have a delete button
+             */
             Button addButton1 = new Button(CreateActivity.this);
             RelativeLayout.LayoutParams addButtonParam =new RelativeLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -236,6 +244,10 @@ public class CreateActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     *
+     * @param view Ending the CreatActivity, storing current questionnaire and start the vote
+     */
     public void generateSurvey(View view){
         Intent intentToQ = new Intent(getApplicationContext(), Questionnaire.class);
 
