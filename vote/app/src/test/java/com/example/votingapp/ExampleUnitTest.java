@@ -4,6 +4,9 @@ import android.widget.TextView;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import static org.junit.Assert.*;
 
 /**
@@ -19,3 +22,14 @@ public class ExampleUnitTest {
 
     }
 }
+
+//public class UnitTestGatherAnswers{
+//    public ArrayList<String> Choices;
+ //   public ArrayList<int[]> Question_Option_Group;
+
+
+    //Question_Option_Group = new ArrayList<>();
+  //  @Test
+  //  public void isCorrect_choices(){
+      //  assertArrayEquals();
+
